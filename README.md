@@ -13,6 +13,8 @@ I created them as free resources to be used in your homelab environment servers 
 
 Traefik is a leading modern reverse proxy and load balancer that makes deploying microservices easy. Traefik integrates with your existing infrastructure components and configures itself automatically and dynamically.
 
+> Don't forget to forward port 80 and 443 in your routers settings or applications won't be exposed to the internet!
+
 ### `Flame` dashboard
 
 <img src="img/flame.png">
@@ -83,4 +85,4 @@ WeKan is an Open Source software collaborative kanban board application. Whether
 
 - [Neovide config](https://github.com/huss4r/neovide-dotfiles) - My amazing neovide config that I currently use for work.
 
-- [Automation](https://github.com/huss4r/ansible-playbooks) - Ansible automation yaml files.
+- [Automation](https://github.com/huss4r/ansiplates) - Ansible automation yaml files.
