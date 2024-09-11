@@ -1,0 +1,35 @@
+services:
+  scrutiny:
+    image: ghcr.io/analogj/scrutiny:master-omnibus
+    container_name: scrutiny
+    restart: always
+    ports:
+      - "9007:8080"
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - SCRUTINY_LOG_LEVEL=${SCRUTINY_LOG_LEVEL}
+      - SCRUTINY_API_ENDPOINT=${SCRUTINY_API_ENDPOINT}
+    volumes:
+        - './config:/opt/scrutiny/config'
+        - './influxdb2:/opt/scrutiny/influxdb'
+        - '/run/udev:/run/udev:ro'
+    devices:
+        - /dev/sda:/dev/sda
+    cap_add:
+        - SYS_RAWIO
+        - SYS_ADMIN
+    networks:
+        - traefik
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.scrutiny.entrypoints=https
+      - traefik.http.routers.scrutiny.rule=Host(`example.com`)
+      - traefik.http.services.scrutiny.loadbalancer.server.port=8080
+      - "traefik.http.routers.scrutiny.middlewares=scrutiny-auth"
+      - "traefik.http.middlewares.scrutiny-auth.basicauth.users=" # echo $(htpasswd -nb user password) | sed -e s/\\$/\\$\\$/g
+      - traefik.http.routers.scrutiny.tls=true
+networks:
+  traefik:
+    external: true
