@@ -1,0 +1,24 @@
+services:
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:latest
+    container_name: prowlarr
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ./data:/config
+    ports:
+      - 9696:9696
+    restart: always
+    networks:
+      - traefik
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.prowlarr.entrypoints=https
+      - traefik.http.routers.prowlarr.rule=Host(`example.com`)
+      - traefik.http.services.prowlarr.loadbalancer.server.port=9696
+      - traefik.http.routers.prowlarr.tls=true
+networks:
+  traefik:
+    external: true
