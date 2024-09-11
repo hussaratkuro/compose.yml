@@ -1,0 +1,26 @@
+services:
+  duplicati:
+    image: lscr.io/linuxserver/duplicati:latest
+    container_name: duplicati
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ./config:/config
+      - ./backups:/backups
+      - ./source:/source
+    ports:
+      - 8200:8200
+    restart: always
+    networks:
+        - traefik
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.duplicati.entrypoints=https
+      - traefik.http.routers.duplicati.rule=Host(`example.com`)
+      - traefik.http.services.duplicati.loadbalancer.server.port=8200
+      - traefik.http.routers.duplicati.tls=true
+networks:
+  traefik:
+    external: true
