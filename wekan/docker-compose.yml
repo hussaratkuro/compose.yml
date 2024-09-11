@@ -1,0 +1,56 @@
+services:
+  wekan-db:
+    image: mongo:4.2
+    restart: always
+    container_name: wekan-db
+    volumes:
+      - ./db-data:/data/db
+    networks:
+      - local
+  wekan:
+    image: wekanteam/wekan:latest
+    restart: always
+    container_name: wekan
+    environment:
+      - MONGO_URL=${MONGO_URL}
+      - ROOT_URL=${ROOT_URL}
+    depends_on:
+      - wekan-db
+    networks:
+      - traefik
+      - local
+    ports:
+      - 9005:8080
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.wekan.entrypoints=https
+      - traefik.http.routers.wekan.rule=Host(`example.com`)
+      - traefik.http.services.wekan.loadbalancer.server.port=8080
+      - traefik.http.routers.wekan.tls=true
+      - traefik.docker.network=traefik
+  mongo-express:
+    image: mongo-express
+    container_name: mongo-express
+    restart: always
+    ports:
+      - "9006:8081"
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=${ME_CONFIG_MONGODB_SERVER}
+      - ME_CONFIG_BASICAUTH_USERNAME=${ME_CONFIG_BASICAUTH_USERNAME}
+      - ME_CONFIG_BASICAUTH_PASSWORD=${ME_CONFIG_BASICAUTH_PASSWORD}
+      - ME_CONFIG_MONGODB_URL=${ME_CONFIG_MONGODB_URL}
+    networks:
+      - local
+      - traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.wekandb.entrypoints=https"
+      - "traefik.http.routers.wekandb.rule=Host(`example.com`)"
+      - "traefik.http.services.wekandb.loadbalancer.server.port=8081"
+      - "traefik.http.routers.wekandb.tls=true"
+      - "traefik.docker.network=traefik"
+networks:
+  traefik:
+    external: true
+  local:
+    external: true
