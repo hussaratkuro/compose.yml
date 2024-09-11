@@ -1,0 +1,16 @@
+services:
+  cloudflare-ddns1:
+    container_name: ddns-example.com
+    image: oznu/cloudflare-ddns:latest
+    restart: always
+    environment:
+      - API_KEY=${API_KEY}
+      - ZONE=${ZONE}
+      - PROXIED=${PROXIED}
+      - PUID=${PUID}
+      - PGID=${PGID}
+    networks:
+      - local
+networks:
+  local:
+    external: true
