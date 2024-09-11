@@ -1,0 +1,19 @@
+services:
+  watchtower:
+    image: containrrr/watchtower
+    container_name: watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - WATCHTOWER_SCHEDULE=${WATCHTOWER_SCHEDULE}
+      - TZ=${TZ}
+      - WATCHTOWER_CLEANUP=${WATCHTOWER_CLEANUP}
+      - WATCHTOWER_REVIVE_STOPPED=${WATCHTOWER_REVIVE_STOPPED}
+      - WATCHTOWER_NOTIFICATIONS=${WATCHTOWER_NOTIFICATIONS}
+      - WATCHTOWER_NOTIFICATION_URL=${WATCHTOWER_NOTIFICATION_URL}
+    restart: always
+    networks:
+      - local
+networks:
+  local:
+    external: true

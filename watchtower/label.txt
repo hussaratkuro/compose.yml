@@ -1,0 +1,2 @@
+# Watchtower disable update label
+com.centurylinklabs.watchtower.enable="false"
