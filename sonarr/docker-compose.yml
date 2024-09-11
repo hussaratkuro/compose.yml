@@ -1,0 +1,51 @@
+services:
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ./sonarr/config:/config
+      - /path/to/media/shows:/tv
+    ports:
+      - 8989:8989
+    restart: always
+    networks:
+      - traefik
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.sonarr.entrypoints=https
+      - traefik.http.routers.sonarr.rule=Host(`example.com`)
+      - traefik.http.services.sonarr.loadbalancer.server.port=8989
+      - traefik.http.routers.sonarr.tls=true
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent:latest
+    container_name: qbittorrent_shows
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - WEBUI_PORT=${WEBUI_PORT}
+      - TORRENTING_PORT=${TORRENTING_PORT}
+    volumes:
+      - ./qbittorrent/config:/config
+      - /path/to/media/shows/complete:/downloads
+      - ./qbittorrent/opt:/opt
+    ports:
+      - 8088:8088
+      - 6882:6881
+      - 6882:6881/udp
+    restart: always
+    networks:
+      - traefik
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.qbitshows.entrypoints=https
+      - traefik.http.routers.qbitshows.rule=Host(`example.com`)
+      - traefik.http.services.qbitshows.loadbalancer.server.port=8088
+      - traefik.http.routers.qbitshows.tls=true
+networks:
+  traefik:
+    external: true
