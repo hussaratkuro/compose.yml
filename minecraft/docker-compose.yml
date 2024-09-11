@@ -1,0 +1,27 @@
+services:
+  minecraft:
+    image: itzg/minecraft-server
+    container_name: minecraft-server
+    tty: true
+    stdin_open: true
+    ports:
+      - "25565:25565"
+    environment:
+      - EULA=${EULA}
+      - VERSION=${VERSION}
+      - ONLINE_MODE=${ONLINE_MODE}
+      - ICON=${ICON}
+      - DIFFICULTY=${DIFFICULTY}
+      - SEED=${SEED}
+      - ANNOUNCE_PLAYER_ACHIEVEMENTS=${ANNOUNCE_PLAYER_ACHIEVEMENTS}
+      - MOTD=${MOTD}
+      - OPS=${OPS}
+      - MEMORY=${MEMORY}
+    volumes:
+      - ./data:/data
+    restart: always
+    networks:
+      - local
+networks:
+  local:
+    external: true
