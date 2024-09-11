@@ -1,0 +1,120 @@
+services:
+  jellyfin:
+    image: lscr.io/linuxserver/jellyfin:latest
+    container_name: jellyfin
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ./config:/config
+      - /path/to/media/shows:/data/tvshows
+      - /path/to/media/movies:/data/movies
+    ports:
+      - 8096:8096
+    restart: always
+    networks:
+      - traefik
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.jellyfin.entrypoints=https
+      - traefik.http.routers.jellyfin.rule=Host(`example.com`)
+      - traefik.http.services.jellyfin.loadbalancer.server.port=8096
+      - traefik.http.routers.jellyfin.tls=true
+  jellyfin-vue:
+    image: ghcr.io/jellyfin/jellyfin-vue:unstable
+    container_name: jellyfin-vue
+    ports:
+      - 8097:80
+    restart: always
+    networks:
+      - traefik
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.jellyfinvue.entrypoints=https
+      - traefik.http.routers.jellyfinvue.rule=Host(`example.com`)
+      - traefik.http.services.jellyfinvue.loadbalancer.server.port=80
+      - traefik.http.routers.jellyfinvue.tls=true
+  jellyseerr:
+    container_name: jellyseerr
+    image: fallenbagel/jellyseerr:latest
+    ports:
+      - 5055:5055
+    volumes:
+      - ./config:/app/config
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    restart: always
+    networks:
+      - traefik
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.jellyseer.entrypoints=https
+      - traefik.http.routers.jellyseer.rule=Host(`example.com`)
+      - traefik.http.services.jellyseer.loadbalancer.server.port=5055
+      - traefik.http.routers.jellyseer.tls=true
+  jellystat:
+    container_name: jellystat
+    image: cyfershepard/jellystat:latest
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_IP=${POSTGRES_IP}
+      - POSTGRES_PORT=${POSTGRES_PORT}
+      - POSTGRES_DATABASE=${POSTGRES_DATABASE}
+      - JWT_SECRET=${JWT_SECRET}
+    depends_on:
+      - jellystat-db
+    ports:
+      - "9008:3000"
+    networks:
+      - traefik
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.jellystat.entrypoints=https
+      - traefik.http.routers.jellystat.rule=Host(`example.com`)
+      - traefik.http.services.jellystat.loadbalancer.server.port=3000
+      - traefik.http.routers.jellystat.tls=true
+  jellystat-db:
+    container_name: jellystat-db
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+    networks:
+      - local
+      - traefik
+  jellystat-pgadmin:
+    restart: always
+    container_name: jellystat-pgadmin
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
+      - PGADMIN_CONFIG_SERVER_MODE=${PGADMIN_CONFIG_SERVER_MODE}
+    volumes:
+       - ./pgadmin:/var/lib/pgadmin
+    ports:
+      - "9009:80"
+    networks:
+      - local
+      - traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.jellystatdb.entrypoints=https"
+      - "traefik.http.routers.jellystatdb.rule=Host(`example.com`)"
+      - "traefik.http.services.jellystatdb.loadbalancer.server.port=80"
+      - "traefik.http.routers.jellystatdb.middlewares=jellystatdb-auth"
+      - "traefik.http.middlewares.jellystatdb-auth.basicauth.users=" # echo $(htpasswd -nb user password) | sed -e s/\\$/\\$\\$/g
+      - "traefik.http.routers.jellystatdb.tls=true"
+      - "traefik.docker.network=traefik"
+networks:
+  traefik:
+    external: true
+  local:
+    external: true
