@@ -7,6 +7,7 @@ This repository **Dockerplates** is my personal docker-compose file collection t
 I created them as free resources to be used in your homelab environment servers if you choose to use them. Keep in mind to tailor them to your specific infrastructure as they do not contain the environment variables or tokens needed to function correctly.
 
 ## Showcase
+
 ### `traefik` reverse proxy
 
 <img src="img/traefik.png">
@@ -80,9 +81,3 @@ Ansible is an open source IT automation engine that automates provisioning, conf
 <img src="img/wekan.png">
 
 WeKan is an Open Source software collaborative kanban board application. Whether you’re maintaining a personal todo list, planning your holidays with some friends, or working in a team on your next revolutionary idea, Kanban boards are an unbeatable tool to keep your things organized.
-
-## Other Resources
-
-- [Neovide config](https://github.com/huss4r/neovide-dotfiles) - My amazing neovide config that I currently use for work.
-
-- [Automation](https://github.com/huss4r/ansiplates) - Ansible automation yaml files.
