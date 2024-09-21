@@ -6,6 +6,11 @@ This repository **Dockerplates** is my personal docker-compose file collection t
 
 I created them as free resources to be used in your homelab environment servers if you choose to use them. Keep in mind to tailor them to your specific infrastructure as they do not contain the environment variables or tokens needed to function correctly.
 
+## Network diagram with these containers
+
+Visual illustration
+<img src="img/network-diagram.png>
+
 ## Showcase
 
 ### `traefik` reverse proxy
