@@ -9,7 +9,8 @@ I created them as free resources to be used in your homelab environment servers 
 ## Network diagram with these containers
 
 Visual illustration
-<img src="img/network-diagram.png>
+
+<img src="img/network-diagram.png">
 
 ## Showcase
 
