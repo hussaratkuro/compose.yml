@@ -22,11 +22,15 @@ Traefik is a leading modern reverse proxy and load balancer that makes deploying
 
 > Don't forget to forward port 80 and 443 in your routers settings or applications won't be exposed to the internet!
 
-### `Flame` dashboard
+### `Flame` dashboard (changed to homepage)
 
 <img src="img/flame.png">
 
 Flame is self-hosted startpage for your server. Flame is very easy to setup and use. With built-in editors, it allows you to setup your very own application hub in no time - no file editing necessary. Although if you are keen on designing your own dashboard you can write your own CSS for it.
+
+### `Homepage` dashboard
+
+<img src="img/homepage.jpeg">
 
 ### `Jellyfin` media server
 
@@ -45,6 +49,18 @@ Jellyseerr is a free and open source software application for managing requests 
 <img src="img/qbittorrent.png">
 
 The Qbittorrent project aims to provide an open-source software alternative to µTorrent. qBittorrent is based on the Qt toolkit and libtorrent-rasterbar library.
+
+### `Radarr` torrent client
+
+<img src="img/radarr.png">
+
+Radarr is a movie collection manager for Usenet and BitTorrent users.
+
+### `Sonarr` torrent client
+
+<img src="img/sonarr.jpeg">
+
+Sonarr is a PVR for Usenet and BitTorrent users.
 
 ### `Portainer` container manager
 
