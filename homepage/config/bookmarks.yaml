@@ -1,0 +1,45 @@
+---
+
+- Developer:
+    - Github:
+        - icon: github.svg
+          href: https://github.com/
+    - Cloudflare:
+        - icon: cloudflare.svg
+          href: https://cloudflare.com
+    - ChatGPT:
+        - icon: chatgpt.svg
+          href: https://chatgpt.com
+    - Google Analytics:
+        - icon: google-analytics.svg
+          href: https://analytics.google.com
+
+- Development:
+    - Dev Project:
+        - icon: https://example.com
+          href: http://localhost:80
+    - Dev MySQL:
+        - icon: mysql.svg
+          href: http://localhost:3306
+
+- Entertainment:
+    - YouTube:
+        - icon: youtube.svg
+          href: https://youtube.com/
+    - Netflix:
+        - icon: netflix.svg
+          href: https://netflix.com
+    - Steam:
+        - icon: steam.svg
+          href: https://store.steampowered.com/
+
+- Social:
+    - Reddit:
+        - icon: reddit.svg
+          href: https://reddit.com/
+    - Messenger:
+        - icon: facebook-messenger.svg
+          href: https://messenger.com
+    - Instagram:
+        - icon: instagram.svg
+          href: https://instagram.com

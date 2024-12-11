@@ -1,0 +1,133 @@
+---
+
+- Media server:
+    - Jellyfin:
+        icon: jellyfin.svg
+        href: https://example.com
+        description: Media server
+        widget:
+            type: jellyfin
+            url: https://example.com
+            key: apiKey
+            enableBlocks: true
+            enableNowPlaying: true
+            enableUser: true
+            showEpisodeNumber: true
+            expandOneStreamToTwoRows: false
+    - Jellyfin:
+        icon: jellyfin-vue.png
+        href: https://example.com
+        description: Jellyfin skin
+        widget:
+            type: jellyfin
+            url: https://example.com
+            key: apiKey
+            enableBlocks: true
+            enableNowPlaying: true
+            enableUser: true
+            showEpisodeNumber: true
+            expandOneStreamToTwoRows: false
+    - Jellyseerr:
+        icon: jellyseerr.svg
+        href: https://example.com
+        description: Media requests
+        widget:
+            type: jellyseerr
+            url: https://example.com
+            key: apiKey
+
+- Torrent:
+    - qBitMovies:
+        icon: qbittorrent.svg
+        href: https://example.com
+        description: Torrent client for movies
+        widget:
+          type: qbittorrent
+          url: https://example.com
+          username: user
+          password: password
+    - qBitShows:
+        icon: qbittorrent.svg
+        href: https://example.com
+        description: Torrent client for shows
+        widget:
+          type: qbittorrent
+          url: https://example.com
+          username: user
+          password: password
+    - Prowlarr:
+        icon: prowlarr.svg
+        href: https://example.com
+        description: Torrent indexer
+        widget:
+          type: prowlarr
+          url: https://example.com
+          key: apiKey
+    - Radarr:
+        icon: radarr.svg
+        href: https://example.com
+        description: Movie downloader
+    - Sonarr:
+        icon: sonarr.svg
+        href: https://example.com
+        description: Show downloader
+
+- Services:
+    - Immich:
+        icon: immich.svg
+        href: https://example.com
+        description: Phone media cloud
+        widget:
+          type: immich
+          url: https://example.com
+          key: apiKey
+          version: 2
+    - WeKan:
+        icon: wekan.svg
+        href: https://example.com
+        description: Kanban board
+    - Spotify statistics:
+        icon: your-spotify.svg
+        href: https://example.com
+        description: Your_spotify
+    - MeTube:
+        icon: metube.svg
+        href: https://example.com
+        description: MP4 downloader
+    - Minecraft:
+        icon: minecraft.svg
+        widget:
+          type: minecraft
+          url: https://example.com
+
+- Administration:
+    - traefik:
+        icon: traefik.svg
+        href: https://example.com
+        description: Reverse proxy
+        widget:
+          type: traefik
+          url: https://example.com
+          username: user
+          password: password
+    - Portainer:
+        icon: portainer.svg
+        href: https://example.com
+        description: Docker management
+    - Pi Hole:
+        icon: pi-hole.svg
+        href: https://example.com
+        description: DNS ad block
+        widget:
+          type: pihole
+          url: https://example.com
+          version: 5
+          key: apiKey
+    - Ansible:
+        icon: ansible.svg
+        href: https://example.com
+        description: Linux automation
+    - Scrutiny:
+        icon: scrutiny.svg
+        href: https://example.com
+        description: Disk health

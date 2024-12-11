@@ -1,0 +1,25 @@
+---
+
+- openmeteo:
+    label:  # optional
+    latitude: # get it from openmeteo
+    longitude: # get it from openmeteo
+    timezone: 
+    units: metric # or imperial
+    cache: 5 # Time in minutes to cache API responses, to stay within limits
+
+- resources:
+    label: # optional
+    cpu: true
+    memory: true
+    cputemp: true
+    tempmin: 0 # optional, minimum cpu temp
+    tempmax: 100 # optional, maximum cpu temp
+    uptime: true
+    units: metric # only used by cpu temp
+    refresh: 3000 # optional, in ms
+
+- datetime:
+    text_size: xl
+    format:
+      timeStyle: short
